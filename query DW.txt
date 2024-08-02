@@ -1,0 +1,170 @@
+USE [DWCredit]
+GO
+
+/****** Object:  Table [dbo].[D_category]    Script Date: 27/01/2023 11:49:18 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[D_category](
+	[category_no] [int] NOT NULL,
+	[category_desc] [varchar](31) NULL,
+	[ID_category] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_category] PRIMARY KEY CLUSTERED 
+(
+	[ID_category] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [DWCredit]
+GO
+
+/****** Object:  Table [dbo].[D_corporation]    Script Date: 27/01/2023 11:50:12 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[D_corporation](
+	[corp_no] [int] NOT NULL,
+	[corp_name] [varchar](31) NOT NULL,
+	[street] [varchar](15) NOT NULL,
+	[city] [varchar](15) NOT NULL,
+	[country] [char](2) NOT NULL,
+	[region_no] [int] NOT NULL,
+	[ID_corporation] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_D_corporation] PRIMARY KEY CLUSTERED 
+(
+	[ID_corporation] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [DWCredit]
+GO
+
+/****** Object:  Table [dbo].[D_member]    Script Date: 27/01/2023 11:50:29 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[D_member](
+	[member_no] [int] NOT NULL,
+	[lastname] [varchar](15) NOT NULL,
+	[firstname] [varchar](15) NOT NULL,
+	[country] [char](2) NOT NULL,
+	[region_no] [int] NOT NULL,
+	[corp_no] [int] NULL,
+	[gender_HF] [nvarchar](10) NULL,
+	[ID_Member] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_member] PRIMARY KEY CLUSTERED 
+(
+	[ID_Member] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [DWCredit]
+GO
+
+/****** Object:  Table [dbo].[D_provider]    Script Date: 27/01/2023 11:50:51 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[D_provider](
+	[provider_no] [int] NULL,
+	[provider_name] [varchar](15) NOT NULL,
+	[country] [char](2) NOT NULL,
+	[region_no] [int] NOT NULL,
+	[ID_provider] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_D_provider] PRIMARY KEY CLUSTERED 
+(
+	[ID_provider] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [DWCredit]
+GO
+
+/****** Object:  Table [dbo].[Dregion]    Script Date: 27/01/2023 11:51:07 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Dregion](
+	[region_no] [int] NOT NULL,
+	[region_name] [varchar](15) NOT NULL,
+	[street] [varchar](15) NOT NULL,
+	[city] [varchar](15) NOT NULL,
+	[state_prov] [char](2) NOT NULL,
+	[country] [char](2) NOT NULL,
+	[mail_code] [char](10) NOT NULL,
+	[phone_no] [char](13) NOT NULL,
+	[region_code] [char](2) NOT NULL,
+	[ID_Region] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [region_ident] PRIMARY KEY CLUSTERED 
+(
+	[ID_Region] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Dregion] ADD  CONSTRAINT [region_status_default]  DEFAULT ('  ') FOR [region_code]
+GO
+
+
+USE [DWCredit]
+GO
+
+/****** Object:  Table [dbo].[payment]    Script Date: 27/01/2023 11:51:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[payment](
+	[payment_no] [int] IDENTITY(1,1) NOT NULL,
+	[member_no] [int] NOT NULL,
+	[payment_dt] [datetime] NOT NULL,
+	[payment_amt] [money] NOT NULL,
+	[statement_no] [int] NULL,
+	[payment_code] [char](2) NOT NULL,
+ CONSTRAINT [payment_ident] PRIMARY KEY NONCLUSTERED 
+(
+	[payment_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[payment] ADD  CONSTRAINT [payment_statement_no_default]  DEFAULT ((0)) FOR [statement_no]
+GO
+
+ALTER TABLE [dbo].[payment] ADD  CONSTRAINT [payment_status_default]  DEFAULT ('  ') FOR [payment_code]
+GO
+
+ALTER TABLE [dbo].[payment]  WITH NOCHECK ADD  CONSTRAINT [payment_amount_rule] CHECK  (([payment_amt]<>(0)))
+GO
+
+ALTER TABLE [dbo].[payment] CHECK CONSTRAINT [payment_amount_rule]
+GO
+
+
+
+

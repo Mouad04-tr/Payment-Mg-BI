@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LocalHost.DWCredit"
+  DTS:DTSID="{0B8C72B4-BF3E-4D2F-9807-D2B0034BA1B1}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.;Initial Catalog=DWCredit;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-ProjetGroupe-{0B8C72B4-BF3E-4D2F-9807-D2B0034BA1B1}LocalHost.DWCredit;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

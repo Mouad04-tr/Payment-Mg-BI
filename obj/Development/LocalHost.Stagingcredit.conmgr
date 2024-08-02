@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LocalHost.Stagingcredit"
+  DTS:DTSID="{4CF98E14-3501-432F-A4F8-D410DE363FA2}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.;Initial Catalog=Stagingcredit;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-ProjetGroupe-{4CF98E14-3501-432F-A4F8-D410DE363FA2}LocalHost.Stagingcredit;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
